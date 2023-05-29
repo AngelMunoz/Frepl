@@ -5,7 +5,7 @@ open Avalonia.Controls
 open NXUI.Extensions
 open type NXUI.Builders
 
-open NxUIFSharp
+open Frepl
 
 
 let panelContent (window: Window) =

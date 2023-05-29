@@ -1,4 +1,5 @@
-namespace NxUIFSharp
+[<AutoOpen>]
+module Frepl.Extensions
 
 open System
 open Avalonia.Controls
