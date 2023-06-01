@@ -1,21 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Include="Extensions.fs" />
+    <Compile Include="EditorEnv.fs" />
+    <Compile Include="FsiEnv.fs" />
+    <Compile Include="Views/Editor.fs" />
+    <Compile Include="Env.fs" />
+    <Compile Include="Frepl.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.0.0-preview8" />
     <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview8" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview8" />
-    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.0-preview8" />
-    
+    <PackageReference Include="Avalonia.Diagnostics" Version="11.0.0-preview8" Condition="'$(Configuration)' == 'Debug'" />
+    <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.0.0-preview8" />
+    <PackageReference Include="AvaloniaEdit.TextMate" Version="11.0.0-preview8" />
+    <PackageReference Include="TextMateSharp.Grammars" Version="1.0.55" />
+    <PackageReference Include="FSharp.Compiler.Service" Version="43.7.300" />
+    <PackageReference Include="FSharp.Control.Reactive" Version="5.0.5" />
     <PackageReference Include="NXUI" Version="11.0.0-preview8" />
     <PackageReference Include="NXUI.Desktop" Version="11.0.0-preview8" />
   </ItemGroup>
