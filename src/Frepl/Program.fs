@@ -1,43 +1,36 @@
-﻿open Avalonia
-open Avalonia.Data
-open Avalonia.Controls
+﻿open System
+
+open Avalonia
+open Avalonia.Themes.Fluent
 
 open NXUI.Extensions
-open type NXUI.Builders
 
 open Frepl
+open Frepl.FsiEnv
+open Frepl.EditorEnv
+open Frepl.AppEnv
 
+type FreplApp() =
+  inherit Application()
 
-let panelContent (window: Window) =
-    let mutable count = 0
-    let button = Button().content ("NXUI + F#!")
-    let textbox = TextBox().text (window.BindTitle())
+  override this.Initialize() =
+    base.Initialize()
 
-    let label =
-        Label()
-            .content (
-                button.ObserveOnClick()
-                |> Observable.tap (fun _ -> count <- count + 1)
-                |> Observable.map (fun _ -> $"You clicked %i{count} times"),
-                mode = BindingMode.OneWay
-            )
+    this.Styles.Add(FluentTheme())
+    let style = Markup.Xaml.Styling.StyleInclude(baseUri = null)
+    style.Source <- Uri("avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml")
 
-    StackPanel().children (button, textbox, label)
+    this.Styles.Add style
 
-let view () : Window =
-    let mutable window = null
-
-    Window(&window)
-        .title("NXUI From F#")
-        .width(300)
-        .height(300)
-        .content (panelContent window)
 
 [<EntryPoint>]
 let main argv =
-    AppBuilder
-        .Configure<Application>()
-        .UsePlatformDetect()
-        .UseFluentTheme(Styling.ThemeVariant.Dark)
-        .WithApplicationName("NXUI and F#")
-        .StartWithClassicDesktopLifetime(view, argv)
+
+  let env = AppEnv(FsiEnv.DefaultEnv, EditorEnv.DefaultEnv)
+
+  AppBuilder
+    .Configure<FreplApp>()
+    .UsePlatformDetect()
+    .UseFluentTheme(Styling.ThemeVariant.Dark)
+    .WithApplicationName("Frepl")
+    .StartWithClassicDesktopLifetime(Frepl.Window(env), argv)
