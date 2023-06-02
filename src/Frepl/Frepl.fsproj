@@ -17,12 +17,15 @@
     <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview8" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview8" />
     <PackageReference Include="Avalonia.Diagnostics" Version="11.0.0-preview8" Condition="'$(Configuration)' == 'Debug'" />
+
     <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.0.0-preview8" />
     <PackageReference Include="AvaloniaEdit.TextMate" Version="11.0.0-preview8" />
     <PackageReference Include="TextMateSharp.Grammars" Version="1.0.55" />
-    <PackageReference Include="FSharp.Compiler.Service" Version="43.7.300" />
-    <PackageReference Include="FSharp.Control.Reactive" Version="5.0.5" />
+
     <PackageReference Include="NXUI" Version="11.0.0-preview8" />
     <PackageReference Include="NXUI.Desktop" Version="11.0.0-preview8" />
+
+    <PackageReference Include="FSharp.Compiler.Service" Version="43.7.200" />
+    <PackageReference Include="FSharp.Control.Reactive" Version="5.0.5" />
   </ItemGroup>
 </Project>
