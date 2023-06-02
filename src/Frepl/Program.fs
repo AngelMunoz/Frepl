@@ -9,6 +9,7 @@ open Frepl
 open Frepl.FsiEnv
 open Frepl.EditorEnv
 open Frepl.AppEnv
+open Avalonia.Controls.ApplicationLifetimes
 
 type FreplApp() =
   inherit Application()
@@ -22,15 +23,22 @@ type FreplApp() =
 
     this.Styles.Add style
 
+  override this.OnFrameworkInitializationCompleted() =
+    match this.ApplicationLifetime with
+    | :? IClassicDesktopStyleApplicationLifetime as desktop ->
+      let mainWindow =
+        AppEnv(FsiEnv.DefaultEnv, EditorEnv.DefaultEnv this.ActualThemeVariant)
+        |> Frepl.Window
+
+      desktop.MainWindow <- mainWindow
+    | _ -> ()
+
 
 [<EntryPoint>]
 let main argv =
-
-  let env = AppEnv(FsiEnv.DefaultEnv, EditorEnv.DefaultEnv)
-
   AppBuilder
     .Configure<FreplApp>()
     .UsePlatformDetect()
     .UseFluentTheme(Styling.ThemeVariant.Dark)
     .WithApplicationName("Frepl")
-    .StartWithClassicDesktopLifetime(Frepl.Window(env), argv)
+    .StartWithClassicDesktopLifetime(argv)

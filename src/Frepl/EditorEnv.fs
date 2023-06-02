@@ -15,7 +15,6 @@ module EditorPatterns =
 
   let inline (|EditorEnv|) (env: #EditorEnv) = (EditorEnv env :> EditorEnv)
 
-
 [<RequireQualifiedAccess>]
 module EditorEnv =
   open Avalonia.Styling
@@ -28,18 +27,16 @@ module EditorEnv =
       ShowEndOfLine = true
     )
 
-  let DefaultRegistryOptions =
-    let theme = Avalonia.Application.Current.RequestedThemeVariant
-
-    if theme = ThemeVariant.Dark then
+  let DefaultRegistryOptions (currentTheme: ThemeVariant) =
+    if currentTheme = ThemeVariant.Dark then
       RegistryOptions(ThemeName.DarkPlus)
-    elif theme = ThemeVariant.Light then
+    elif currentTheme = ThemeVariant.Light then
       RegistryOptions(ThemeName.LightPlus)
     else
       RegistryOptions(ThemeName.Monokai)
 
-  let DefaultEnv: EditorEnv =
+  let DefaultEnv (initialTheme: ThemeVariant) : EditorEnv =
     { new EditorEnv with
         member _.EditorOptions: TextEditorOptions = DefaultOptions
-        member _.RegistryOptions: RegistryOptions = DefaultRegistryOptions
+        member _.RegistryOptions: RegistryOptions = DefaultRegistryOptions initialTheme
     }

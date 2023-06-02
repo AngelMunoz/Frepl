@@ -133,22 +133,21 @@ module Frepl =
       .children(panels, inputBox)
 
 
-  let Window (env: AppEnv) : unit -> Window =
-    fun () ->
-      let font =
+  let Window (env: AppEnv) : Window =
+    let font =
 
-        try
-          FontFamily.Parse("Fira Code,Cascadia Code,Consolas,Monospace") |> ValueSome
-        with :? ArgumentException ->
-          ValueNone
+      try
+        FontFamily.Parse("Fira Code,Cascadia Code,Consolas,Monospace") |> ValueSome
+      with :? ArgumentException ->
+        ValueNone
 
 
-      let window =
-        Window()
-          .fontFamily(font |> ValueOption.defaultValue FontFamily.Default)
-          .content(View env)
+    let window =
+      Window()
+        .fontFamily(font |> ValueOption.defaultValue FontFamily.Default)
+        .content(View env)
 
 #if DEBUG
-      window.AttachDevTools()
+    window.AttachDevTools()
 #endif
-      window
+    window
